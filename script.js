@@ -1,21 +1,22 @@
+
 async function getJoke() {
     try {
         // const url = "https://icanhazdadjoke.com/";
-        const url = "https://api.disneyapi.dev/character?name=Goofy";
+        const name = document.getElementById("Search").value;
+        console.log(name);
+        const url = "https://api.disneyapi.dev/character?name=" + name;
         const headers = new Headers();
-        headers.append("accept", "application/json")
+        headers.append("Accept", "application/json");
 
-        const response = await fetch(url, { headers: headers })
+        const response = await fetch(url, { headers: headers });
 
         const json = await response.json();
         console.log(json);
-        const jokeHolder = document.getElementById("jokeHolder")
-        // jokeHolder.textContent = json.data[0].imageUrl;
-        const img = document.createElement("img");
-        img.src = json.data[0].imageUrl;
-        jokeHolder.appendChild(img)
-    }
-    catch (error) {
-        console.log(error)
+        const jokeHolder = document.getElementById("jokeHolder");
+        jokeHolder.src = json.data[0].imageUrl;
+
+        // jokeHolder.textContent = json.facts[0];
+    } catch (error) {
+        console.log(error);
     }
 }
